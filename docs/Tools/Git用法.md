@@ -4,7 +4,7 @@
 
 使用 ping 网站，比如[这个](http://ping.chinaz.com/)检查 IP 地址的通讯状况。比如测试`github.com`，找到一个可以 ping 通的 IP 地址：
 
-![u1688z](http://qny.mrpwei.cc/uPic/u1688z.png)
+[![xd0vND.png](https://s1.ax1x.com/2022/10/13/xd0vND.png)](https://imgse.com/i/xd0vND)
 
 接着，打开终端，使用 vim 打开 hosts 文件，修改 github.com 的 DNS：
 
@@ -12,7 +12,7 @@
 sudo vim /etc/hosts
 ```
 
-![5rdi7z](http://qny.mrpwei.cc/uPic/5rdi7z.png)
+[![xdy3QJ.png](https://s1.ax1x.com/2022/10/13/xdy3QJ.png)](https://imgse.com/i/xdy3QJ)
 
 一般添加好 github.com 和 raw.githubusercontent.com 等经常挂的域名就行，其它的看情况添加。
 
@@ -73,7 +73,7 @@ sudo vim /etc/hosts
 10. 在 Key 里粘贴 8 中你复制的那串东西
 11. 点击 Add SSH key
 12. 回到 Git Bash，运行 `ssh -T git@github.com`，你可能会看到这样的提示：
-    ![图片](https://upload-images.jianshu.io/upload_images/9351608-2e1ffd46978b8934.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp)
+    ![xdyGLR.png](https://s1.ax1x.com/2022/10/13/xdyGLR.png)
 
 输入 yes 回车。
 
