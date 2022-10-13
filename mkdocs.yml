@@ -1,0 +1,16 @@
+site_name: mrpwei.github.io
+theme:
+  name: material
+  plugins:
+    - search:
+        - en
+        - ja
+  palette:
+    primary: teal
+  language: zh
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.top
