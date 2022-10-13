@@ -23,3 +23,9 @@ plugins:
         - en
         - ja
   - tags # 给单篇文章添加标签 https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/?h=tags
+  - glightbox:
+      effect: zoom
+      width: 100%
+      height: auto
+      zoomable: true
+      draggable: true
