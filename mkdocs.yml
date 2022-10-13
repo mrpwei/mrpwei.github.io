@@ -1,4 +1,6 @@
 site_name: mrpwei.github.io
+site_url: https://mrpwei.github.io
+repo_url: https://github.com/mrpwei/mrpwei.github.io
 theme:
   name: material
   language: zh
@@ -8,11 +10,12 @@ theme:
     edit: material/pencil
   features:
     - navigation.instant
+    - navigation.tabs
     - navigation.sections
     - navigation.top
     - search.suggest
     - search.highlight
-edit_uri: edit/master/docs/
+edit_uri: edit/main/docs/
 plugins:
   - search: # 现在还不支持中文搜索 支持之后可以设置语言
       # insider已经支持中文的分词搜索了 https://squidfunk.github.io/mkdocs-material/blog/2022/chinese-search-support/
