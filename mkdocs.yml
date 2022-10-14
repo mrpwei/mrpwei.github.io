@@ -3,13 +3,15 @@ site_author: Peng Wei
 site_description: 彭伟的个人网站
 site_url: https://mrpwei.github.io
 repo_url: https://github.com/mrpwei/mrpwei.github.io
+repo_name: mrpwei.github.io
 theme:
   name: material
   language: zh
   palette:
     primary: teal
-  logo: images/hammer.svg
-  favicon: images/hammer.svg
+    accent: teal
+  logo: assets/images/hammer.svg
+  favicon: assets/images/hammer.svg
   icon:
     edit: material/pencil
   features:
@@ -34,6 +36,8 @@ plugins:
       height: auto
       zoomable: true
       draggable: true
+extra_css:
+  - assets/stylesheets/extra.css
 markdown_extensions:
   - attr_list
   - pymdownx.emoji:

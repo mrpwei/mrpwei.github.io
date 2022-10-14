@@ -1,0 +1,24 @@
+.md-typeset h1 {
+  font-weight: 400;
+  color: var(--md-typeset-color);
+}
+
+.md-typeset h2 {
+  font-weight: 400;
+  text-indent: 10px;
+  color: var(--md-primary-fg-color);
+  border-left: 5px solid var(--md-primary-fg-color);
+}
+
+.md-typeset h3 {
+  color: var(--md-primary-fg-color);
+}
+
+.md-typeset a {
+  color: var(--md-primary-fg-color);
+  word-break: break-word;
+}
+/* 左侧导航栏链接 */
+.md-nav__item .md-nav__link--active {
+  color: var(--md-primary-fg-color);
+}
