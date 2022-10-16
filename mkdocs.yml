@@ -8,8 +8,22 @@ theme:
   name: material
   language: zh
   palette:
-    primary: teal
-    accent: teal
+    # Palette toggle for light mode
+    - scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
   logo: assets/images/hammer.svg
   favicon: assets/images/hammer.svg
   icon:
@@ -29,7 +43,8 @@ plugins:
       lang:
         - en
         - ja
-  - tags # 给单篇文章添加标签 https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/?h=tags
+  - tags: # 给单篇文章添加标签 https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/?h=tags
+      tags_file: tags.md
   - glightbox:
       effect: zoom
       width: 100%
