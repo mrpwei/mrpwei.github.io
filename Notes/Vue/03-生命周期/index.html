@@ -1,0 +1,849 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="彭伟的个人网站" name="description"/>
+<meta content="Peng Wei" name="author"/>
+<link href="https://mrpwei.github.io/Notes/Vue/03-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" rel="canonical"/>
+<link href="../../../assets/images/hammer.svg" rel="icon"/>
+<meta content="mkdocs-1.4.1, mkdocs-material-8.5.7" name="generator"/>
+<title>生命周期 - Peng.Wei</title>
+<link href="../../../assets/stylesheets/main.20d9efc8.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.cbb835fc.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../assets/stylesheets/extra.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gdesc-inner { font-size: 0.75rem; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            
+                .gscrollbar-fixer { padding-right: 15px; }
+                </style><script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="teal" data-md-color-primary="teal" data-md-color-scheme="default" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#_1">
+          跳转至
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--lifted" data-md-component="header">
+<nav aria-label="页眉" class="md-header__inner md-grid">
+<a aria-label="Peng.Wei" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="Peng.Wei">
+<img alt="logo" src="../../../assets/images/hammer.svg"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Peng.Wei
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              生命周期
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="teal" data-md-color-media="" data-md-color-primary="teal" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="teal" data-md-color-media="" data-md-color-primary="teal" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+</form>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="搜索" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="搜索" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="查找" class="md-search__options">
+<button aria-label="清空当前内容" class="md-search__icon md-icon" tabindex="-1" title="清空当前内容" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+<div class="md-search__suggest" data-md-component="search-suggest"></div>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/mrpwei/mrpwei.github.io" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    mrpwei.github.io
+  </div>
+</a>
+</div>
+</nav>
+<nav aria-label="标签" class="md-tabs" data-md-component="tabs">
+<div class="md-tabs__inner md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+      Home
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../tags/">
+      Tags
+    </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../Interview/%E7%BB%8F%E5%85%B8%E9%9D%A2%E8%AF%95%E9%A2%98/">
+        Interview
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link md-tabs__link--active" href="../../">
+        Notes
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../Tools/">
+        Tools
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../Wiki/wiki/">
+        Wiki
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="导航栏" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Peng.Wei" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="Peng.Wei">
+<img alt="logo" src="../../../assets/images/hammer.svg"/>
+</a>
+    Peng.Wei
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/mrpwei/mrpwei.github.io" title="前往仓库">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    mrpwei.github.io
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+        Home
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../tags/">
+        Tags
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3">
+          Interview
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Interview" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          Interview
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Interview/%E7%BB%8F%E5%85%B8%E9%9D%A2%E8%AF%95%E9%A2%98/">
+        经典面试题
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4">
+          Notes
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Notes" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          Notes
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../">
+        Welcome to MkDocs
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Http/">
+        网络
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../css/">
+        Css
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../html/">
+        HTML5
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" id="__nav_4_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_5">
+          CLI
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="CLI" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_5">
+<span class="md-nav__icon md-icon"></span>
+          CLI
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../CLI/Webpack%E5%AD%A6%E4%B9%A0/">
+        Webpack学习
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6" id="__nav_4_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6">
+          JavaScript
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="JavaScript" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_6">
+<span class="md-nav__icon md-icon"></span>
+          JavaScript
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../JavaScript/25%E4%B8%AA%E4%BD%A0%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E6%95%B0%E7%BB%84reduce%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/">
+        25个你不得不知道的数组reduce高级用法
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_7" id="__nav_4_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_7">
+          React
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="React" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_7">
+<span class="md-nav__icon md-icon"></span>
+          React
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../React/React%E5%9F%BA%E7%A1%80/">
+        React 基础
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../React/react%E7%B3%BB%E7%BB%9F%E7%B2%BE%E8%AE%B2/">
+        React系统精讲
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_8" id="__nav_4_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_8">
+          Vue
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Vue" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_8">
+<span class="md-nav__icon md-icon"></span>
+          Vue
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/">
+        核心概念
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02-%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95/">
+        基本方法
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          生命周期
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        生命周期
+      </a>
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_2">
+    生命周期钩子函数
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5">
+          Tools
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Tools" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+          Tools
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Tools/">
+        Icons, Emojis
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Tools/Admonitions/">
+        Admonitions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Tools/Git%E7%94%A8%E6%B3%95/">
+        Git Usage
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6">
+          Wiki
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Wiki" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+          Wiki
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/wiki/">
+        Wiki
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--section md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" id="__nav_6_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6_2">
+          Base
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Base" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_6_2">
+<span class="md-nav__icon md-icon"></span>
+          Base
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E4%B8%80%E9%A5%AD%E5%8D%83%E9%87%91/">
+        一饭千金
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E4%B8%9C%E5%B1%B1%E5%86%8D%E8%B5%B7/">
+        东山再起
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E4%B8%9C%E5%BA%8A/">
+        东床
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E4%B9%90%E4%B8%8D%E6%80%9D%E8%9C%80/">
+        乐不思蜀
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E5%88%AE%E7%9B%AE%E7%9B%B8%E7%9C%8B/">
+        刮目相看
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E5%9B%8A%E8%90%A4%E6%98%A0%E9%9B%AA/">
+        囊萤映雪
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E5%9B%9B%E9%9D%A2%E6%A5%9A%E6%AD%8C/">
+        四面楚歌
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E5%A5%87%E8%B4%A7%E5%8F%AF%E5%B1%85/">
+        奇货可居
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E5%AD%BA%E5%AD%90%E5%8F%AF%E6%95%99/">
+        孺子可教
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E5%AE%B6%E5%BE%92%E5%9B%9B%E5%A3%81/">
+        家徒四壁
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E5%AF%92%E9%A3%9F%E8%8A%82/">
+        寒食节
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E6%84%BF%E8%80%85%E4%B8%8A%E9%92%A9/">
+        愿者上钩
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E6%89%8B%E4%B8%8D%E9%87%8A%E5%8D%B7/">
+        手不释卷
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E6%89%8D%E9%AB%98%E5%85%AB%E6%96%97/">
+        才高八斗
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E6%8C%87%E9%B9%BF%E4%B8%BA%E9%A9%AC/">
+        指鹿为马
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E6%9D%8E%E5%B9%BF/">
+        李广
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E6%A1%83%E6%9D%8E%E4%B8%8D%E8%A8%80%EF%BC%8C%E4%B8%8B%E8%87%AA%E6%88%90%E8%B9%8A/">
+        桃李不言，下自成蹊
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E6%B4%9B%E9%98%B3%E7%BA%B8%E8%B4%B5/">
+        洛阳纸贵
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E6%B8%85%E6%98%8E%E8%8A%82/">
+        清明节
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E7%83%BD%E7%81%AB%E6%88%8F%E8%AF%B8%E4%BE%AF/">
+        烽火戏诸侯
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E7%8B%A1%E5%85%94%E4%B8%89%E7%AA%9F/">
+        狡兔三窟
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E7%94%BB%E9%BE%99%E7%82%B9%E7%9D%9B/">
+        画龙点睛
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E7%A0%B4%E9%87%9C%E6%B2%89%E8%88%9F/">
+        破釜沉舟
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E7%BA%B8%E4%B8%8A%E8%B0%88%E5%85%B5/">
+        纸上谈兵
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E8%83%8C%E6%B0%B4%E4%B8%80%E6%88%98/">
+        背水一战
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E8%8D%89%E6%9C%A8%E7%9A%86%E5%85%B5%E3%80%81%E9%A3%8E%E5%A3%B0%E9%B9%A4%E5%94%B3/">
+        草木皆兵、风声鹤唳
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E8%B5%94%E4%BA%86%E5%A4%AB%E4%BA%BA%E5%8F%88%E6%8A%98%E5%85%B5/">
+        赔了夫人又折兵
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E8%B7%AF%E4%BA%BA%E7%9A%86%E7%9F%A5/">
+        路人皆知
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E8%BF%9C%E4%BA%A4%E8%BF%91%E6%94%BB/">
+        远交近攻
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E9%97%BB%E9%B8%A1%E8%B5%B7%E8%88%9E%E3%80%81%E4%B8%AD%E6%B5%81%E5%87%BB%E6%A5%AB/">
+        闻鸡起舞、中流击楫
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E9%9F%A6%E7%BC%96%E4%B8%89%E7%BB%9D/">
+        韦编三绝
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E9%A9%AC%E9%9D%A9%E8%A3%B9%E5%B0%B8/">
+        马革裹尸
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E9%B8%BF%E9%9B%81%E4%BC%A0%E4%B9%A6/">
+        鸿雁传书
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../Wiki/base/%E9%BB%84%E8%A2%8D%E5%8A%A0%E8%BA%AB/">
+        黄袍加身
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="目录" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#_2">
+    生命周期钩子函数
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/mrpwei/mrpwei.github.io/edit/main/docs/Notes/Vue/03-生命周期.md" title="编辑此页">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"></path></svg>
+</a>
+<h1 id="_1">生命周期</h1>
+<h2 id="_2">生命周期钩子函数</h2>
+<p>每个组件在被创建时都要经过一系列的初始化过程——例如，需要设置数据监听、编译模板、将实例挂载到 DOM 并在数据变化时更新 DOM 等。同时在这个过程中也会运行一些叫做<strong>生命周期钩子</strong>的函数，这给了用户在不同阶段添加自己的代码的机会。</p>
+<p>就像是工厂的流水线，每个工人站在各自的岗位，当任务流转到工人身边的时候，工人就开始工作。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>简单来说生命周期钩子函数就是<strong>回调函数</strong>，在 Vue 的某个时机去调用对应的回调函数。就像定时器一样，谁调用的定时器的回调函数呢？其实就是定时器内部在调用的。</p>
+</div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"2秒后被执行了"</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="p">},</span><span class="w"> </span><span class="mf">2000</span><span class="p">);</span><span class="w"></span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span>
+<span class="normal"><a href="#__codelineno-1-20">20</a></span>
+<span class="normal"><a href="#__codelineno-1-21">21</a></span>
+<span class="normal"><a href="#__codelineno-1-22">22</a></span>
+<span class="normal"><a href="#__codelineno-1-23">23</a></span>
+<span class="normal"><a href="#__codelineno-1-24">24</a></span>
+<span class="normal"><a href="#__codelineno-1-25">25</a></span>
+<span class="normal"><a href="#__codelineno-1-26">26</a></span>
+<span class="normal"><a href="#__codelineno-1-27">27</a></span>
+<span class="normal"><a href="#__codelineno-1-28">28</a></span>
+<span class="normal"><a href="#__codelineno-1-29">29</a></span>
+<span class="normal"><a href="#__codelineno-1-30">30</a></span>
+<span class="normal"><a href="#__codelineno-1-31">31</a></span>
+<span class="normal"><a href="#__codelineno-1-32">32</a></span>
+<span class="normal"><a href="#__codelineno-1-33">33</a></span>
+<span class="normal"><a href="#__codelineno-1-34">34</a></span>
+<span class="normal"><a href="#__codelineno-1-35">35</a></span>
+<span class="normal"><a href="#__codelineno-1-36">36</a></span>
+<span class="normal"><a href="#__codelineno-1-37">37</a></span>
+<span class="normal"><a href="#__codelineno-1-38">38</a></span>
+<span class="normal"><a href="#__codelineno-1-39">39</a></span>
+<span class="normal"><a href="#__codelineno-1-40">40</a></span>
+<span class="normal"><a href="#__codelineno-1-41">41</a></span>
+<span class="normal"><a href="#__codelineno-1-42">42</a></span>
+<span class="normal"><a href="#__codelineno-1-43">43</a></span>
+<span class="normal"><a href="#__codelineno-1-44">44</a></span>
+<span class="normal"><a href="#__codelineno-1-45">45</a></span>
+<span class="normal"><a href="#__codelineno-1-46">46</a></span>
+<span class="normal"><a href="#__codelineno-1-47">47</a></span>
+<span class="normal"><a href="#__codelineno-1-48">48</a></span>
+<span class="normal"><a href="#__codelineno-1-49">49</a></span>
+<span class="normal"><a href="#__codelineno-1-50">50</a></span>
+<span class="normal"><a href="#__codelineno-1-51">51</a></span>
+<span class="normal"><a href="#__codelineno-1-52">52</a></span>
+<span class="normal"><a href="#__codelineno-1-53">53</a></span>
+<span class="normal"><a href="#__codelineno-1-54">54</a></span>
+<span class="normal"><a href="#__codelineno-1-55">55</a></span>
+<span class="normal"><a href="#__codelineno-1-56">56</a></span>
+<span class="normal"><a href="#__codelineno-1-57">57</a></span>
+<span class="normal"><a href="#__codelineno-1-58">58</a></span>
+<span class="normal"><a href="#__codelineno-1-59">59</a></span>
+<span class="normal"><a href="#__codelineno-1-60">60</a></span>
+<span class="normal"><a href="#__codelineno-1-61">61</a></span>
+<span class="normal"><a href="#__codelineno-1-62">62</a></span>
+<span class="normal"><a href="#__codelineno-1-63">63</a></span>
+<span class="normal"><a href="#__codelineno-1-64">64</a></span>
+<span class="normal"><a href="#__codelineno-1-65">65</a></span>
+<span class="normal"><a href="#__codelineno-1-66">66</a></span>
+<span class="normal"><a href="#__codelineno-1-67">67</a></span>
+<span class="normal"><a href="#__codelineno-1-68">68</a></span>
+<span class="normal"><a href="#__codelineno-1-69">69</a></span>
+<span class="normal"><a href="#__codelineno-1-70">70</a></span>
+<span class="normal"><a href="#__codelineno-1-71">71</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">"app"</span><span class="p">&gt;</span>{{ message }}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">  </span><span class="cm">/* function foo(cb){</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="cm">      //指定的时机去调用回调函数</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="cm">      cb();</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="cm">    }</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="cm">    foo(function(){</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="cm">      // 编写复杂的逻辑1</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="cm">    });</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="cm">    foo(function(){</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="cm">      // 编写复杂的逻辑2</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="cm">    }); */</span><span class="w"></span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">vueApp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Vue</span><span class="p">.</span><span class="nx">createApp</span><span class="p">({</span><span class="w"></span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="w">    </span><span class="nx">data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="w">        </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s2">"hello world"</span><span class="p">,</span><span class="w"></span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="w">      </span><span class="p">};</span><span class="w"></span>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="w">    </span><span class="nx">beforeCreate</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="w">      </span><span class="c1">// console.log( this.message );       // undefined</span><span class="w"></span>
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="w">      </span><span class="c1">// console.log( app.innerHTML );  // 空</span><span class="w"></span>
+<a id="__codelineno-1-23" name="__codelineno-1-23"></a><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<a id="__codelineno-1-24" name="__codelineno-1-24"></a><span class="w">    </span><span class="c1">// 响应式数据准备好后触发的生命周期</span><span class="w"></span>
+<a id="__codelineno-1-25" name="__codelineno-1-25"></a><span class="w">    </span><span class="nx">created</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-1-26" name="__codelineno-1-26"></a><span class="w">      </span><span class="c1">// console.log( this.message );   // ✔</span><span class="w"></span>
+<a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="w">      </span><span class="c1">// console.log( app.innerHTML );  // 空</span><span class="w"></span>
+<a id="__codelineno-1-28" name="__codelineno-1-28"></a><span class="w">      </span><span class="c1">// 响应式数据准备好后再发起ajax</span><span class="w"></span>
+<a id="__codelineno-1-29" name="__codelineno-1-29"></a><span class="w">      </span><span class="cm">/*  setTimeout(()=&gt;{</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30"></a><span class="cm">          this.message = 'hi vue';</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31"></a><span class="cm">        }, 1000) */</span><span class="w"></span>
+<a id="__codelineno-1-32" name="__codelineno-1-32"></a><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<a id="__codelineno-1-33" name="__codelineno-1-33"></a><span class="w">    </span><span class="nx">beforeMount</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-1-34" name="__codelineno-1-34"></a><span class="w">      </span><span class="c1">// console.log( this.message );   // ✔</span><span class="w"></span>
+<a id="__codelineno-1-35" name="__codelineno-1-35"></a><span class="w">      </span><span class="c1">// console.log( app.innerHTML );  // 空</span><span class="w"></span>
+<a id="__codelineno-1-36" name="__codelineno-1-36"></a><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<a id="__codelineno-1-37" name="__codelineno-1-37"></a><span class="w">    </span><span class="c1">// 等DOM加载完毕后触发的生命周期</span><span class="w"></span>
+<a id="__codelineno-1-38" name="__codelineno-1-38"></a><span class="w">    </span><span class="nx">mounted</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-1-39" name="__codelineno-1-39"></a><span class="w">      </span><span class="c1">// console.log( this.message );   // ✔</span><span class="w"></span>
+<a id="__codelineno-1-40" name="__codelineno-1-40"></a><span class="w">      </span><span class="c1">// console.log( app.innerHTML );  // ✔</span><span class="w"></span>
+<a id="__codelineno-1-41" name="__codelineno-1-41"></a><span class="w">      </span><span class="cm">/* setTimeout(()=&gt;{</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42"></a><span class="cm">          this.message = 'hi vue';</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43"></a><span class="cm">        }, 1000) */</span><span class="w"></span>
+<a id="__codelineno-1-44" name="__codelineno-1-44"></a><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<a id="__codelineno-1-45" name="__codelineno-1-45"></a><span class="w">    </span><span class="nx">beforeUpdate</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-1-46" name="__codelineno-1-46"></a><span class="w">      </span><span class="c1">// 在更新数据的时候会触发的生命周期</span><span class="w"></span>
+<a id="__codelineno-1-47" name="__codelineno-1-47"></a><span class="w">      </span><span class="c1">// console.log( this.message );       // hi vue</span><span class="w"></span>
+<a id="__codelineno-1-48" name="__codelineno-1-48"></a><span class="w">      </span><span class="c1">// console.log( app.innerHTML );  // hello world</span><span class="w"></span>
+<a id="__codelineno-1-49" name="__codelineno-1-49"></a><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<a id="__codelineno-1-50" name="__codelineno-1-50"></a><span class="w">    </span><span class="nx">updated</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-1-51" name="__codelineno-1-51"></a><span class="w">      </span><span class="c1">// DOM更新后再触发</span><span class="w"></span>
+<a id="__codelineno-1-52" name="__codelineno-1-52"></a><span class="w">      </span><span class="c1">// console.log( this.message );       // hi vue</span><span class="w"></span>
+<a id="__codelineno-1-53" name="__codelineno-1-53"></a><span class="w">      </span><span class="c1">// console.log( app.innerHTML );  // hi vue</span><span class="w"></span>
+<a id="__codelineno-1-54" name="__codelineno-1-54"></a><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<a id="__codelineno-1-55" name="__codelineno-1-55"></a><span class="w">    </span><span class="nx">beforeUnmount</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-1-56" name="__codelineno-1-56"></a><span class="w">      </span><span class="c1">// console.log( this.message );</span><span class="w"></span>
+<a id="__codelineno-1-57" name="__codelineno-1-57"></a><span class="w">      </span><span class="c1">// console.log( app.innerHTML );</span><span class="w"></span>
+<a id="__codelineno-1-58" name="__codelineno-1-58"></a><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<a id="__codelineno-1-59" name="__codelineno-1-59"></a><span class="w">    </span><span class="nx">unmounted</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-1-60" name="__codelineno-1-60"></a><span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span><span class="w"> </span><span class="c1">// hello world</span><span class="w"></span>
+<a id="__codelineno-1-61" name="__codelineno-1-61"></a><span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">);</span><span class="w"> </span><span class="c1">// ''</span><span class="w"></span>
+<a id="__codelineno-1-62" name="__codelineno-1-62"></a><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<a id="__codelineno-1-63" name="__codelineno-1-63"></a><span class="w">  </span><span class="p">});</span><span class="w"></span>
+<a id="__codelineno-1-64" name="__codelineno-1-64"></a>
+<a id="__codelineno-1-65" name="__codelineno-1-65"></a><span class="w">  </span><span class="nx">vueApp</span><span class="p">.</span><span class="nx">mount</span><span class="p">(</span><span class="s2">"#app"</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-1-66" name="__codelineno-1-66"></a>
+<a id="__codelineno-1-67" name="__codelineno-1-67"></a><span class="w">  </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-1-68" name="__codelineno-1-68"></a><span class="w">    </span><span class="c1">//vm.message = 'hi vue';</span><span class="w"></span>
+<a id="__codelineno-1-69" name="__codelineno-1-69"></a><span class="w">    </span><span class="nx">vueApp</span><span class="p">.</span><span class="nx">unmount</span><span class="p">();</span><span class="w"></span>
+<a id="__codelineno-1-70" name="__codelineno-1-70"></a><span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="mf">1000</span><span class="p">);</span><span class="w"></span>
+<a id="__codelineno-1-71" name="__codelineno-1-71"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div></td></tr></table></div>
+<p>官方提供的<strong><a href="https://cn.vuejs.org/guide/essentials/lifecycle.html#lifecycle-diagram">生命周期图示</a></strong></p>
+<p><a class="glightbox" data-desc-position="bottom" data-description="" data-height="auto" data-title="" data-width="100%" href="https://cn.vuejs.org/assets/lifecycle.16e4c08e.png"><img alt="生命周期" src="https://cn.vuejs.org/assets/lifecycle.16e4c08e.png"/></a></p>
+<p>生命周期可划分为三个部分：</p>
+<ol>
+<li>初始阶段：beforeCreate、created、beforeMount、mounted</li>
+<li>更新阶段：beforeUpdate、updated</li>
+<li>销毁阶段：beforeUnmout、unmounted</li>
+</ol>
+<p><a class="glightbox" data-desc-position="bottom" data-description="" data-height="auto" data-title="" data-width="100%" href="https://s1.ax1x.com/2022/10/14/xwZz2d.png"><img alt="生命周期2" src="https://s1.ax1x.com/2022/10/14/xwZz2d.png"/></a></p>
+<p>清理定时器、解绑事件等可在销毁阶段来做。</p>
+<p>activate 在学 keepalive 的时候再讲，最后 3 个是用于调试的。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip<p>注：一般在，created，mounted 中都可以发送数据请求，但是，大部分时候，会在 created 发送请求。因为这样可以更短的时间去响应数据。</p>
+</p>
+</div>
+</article>
+</div>
+</div>
+<a class="md-top md-icon" data-md-component="top" hidden="" href="#">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"></path></svg>
+            回到页面顶部
+          </a>
+</main>
+<footer class="md-footer">
+<nav aria-label="页脚" class="md-footer__inner md-grid">
+<a aria-label="上一页: 基本方法" class="md-footer__link md-footer__link--prev" href="../02-%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95/" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</div>
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                上一页
+              </span>
+              基本方法
+            </div>
+</div>
+</a>
+<a aria-label="下一页: Icons, Emojis" class="md-footer__link md-footer__link--next" href="../../../Tools/" rel="next">
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                下一页
+              </span>
+              Icons, Emojis
+            </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "search.suggest", "search.highlight"], "search": "../../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\uff0c\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+<script src="../../../assets/javascripts/bundle.8492ddcf.min.js"></script>
+<script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom"});})</script></body>
+</html>
